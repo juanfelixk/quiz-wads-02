@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: todo_quiz_db_02
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: wads
+      POSTGRES_PASSWORD: wads
+      POSTGRES_DB: todo_quiz
+    ports:
+      - "5432:5432"
+    volumes:
+      - todo_quiz_pgdata_02:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wads -d todo_quiz"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: todo_quiz_app_02
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://wads:wads@postgres:5432/todo_quiz
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-quiz-secret-change-me-32chars}
+      BETTER_AUTH_URL: http://localhost:3000
+      NEXT_PUBLIC_BETTER_AUTH_URL: http://localhost:3000
+      OLLAMA_BASE_URL: https://ollama.csbihub.id
+      OLLAMA_MODEL: gemma4:26b
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  todo_quiz_pgdata_02:

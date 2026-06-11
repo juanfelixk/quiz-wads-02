@@ -1,0 +1,47 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Todo List API — WADS Quiz",
+    "version": "1.0.0"
+  },
+  "servers": [{ "url": "http://localhost:3000" }],
+  "paths": {
+    "/api/todos": {
+      "get": {
+        "summary": "List todos",
+        "security": [{ "cookieAuth": [] }],
+        "responses": { "200": { "description": "OK" } }
+      },
+      "post": {
+        "summary": "Create todo",
+        "security": [{ "cookieAuth": [] }],
+        "responses": { "201": { "description": "Created" } }
+      }
+    },
+    "/api/todos/{id}": {
+      "delete": {
+        "summary": "Delete todo",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Deleted" } }
+      }
+    },
+    "/api/ai/suggest": {
+      "post": {
+        "summary": "AI suggest subtasks",
+        "security": [{ "cookieAuth": [] }],
+        "responses": { "200": { "description": "Suggestion" } }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "better-auth.session_token"
+      }
+    }
+  }
+}

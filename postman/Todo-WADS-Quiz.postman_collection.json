@@ -1,0 +1,52 @@
+{
+  "info": {
+    "name": "Todo WADS Quiz",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:3000" }],
+  "item": [
+    {
+      "name": "Auth — Sign In",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"quiz@binus.ac.id\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": "{{baseUrl}}/api/auth/sign-in/email"
+      }
+    },
+    {
+      "name": "Todos — Create",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Finish WADS quiz\",\n  \"description\": \"Fix API and tests\",\n  \"priority\": \"HIGH\"\n}"
+        },
+        "url": "{{baseUrl}}/api/todos"
+      }
+    },
+    {
+      "name": "Todos — List",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/todos"
+      }
+    },
+    {
+      "name": "AI — Suggest",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Prepare presentation slides\"\n}"
+        },
+        "url": "{{baseUrl}}/api/ai/suggest"
+      }
+    }
+  ]
+}
