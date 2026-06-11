@@ -2,7 +2,7 @@ import { z } from "zod";
 
 /** EXAM Q3: title min length too weak — students should use .min(1) */
 export const createTodoSchema = z.object({
-  title: z.string().max(200),
+  title: z.string().max(200).min(1),
   description: z.string().max(2000).optional(),
   completed: z.boolean().optional().default(false),
   priority: z.enum(["LOW", "MEDIUM", "HIGH"]).optional().default("MEDIUM"),
